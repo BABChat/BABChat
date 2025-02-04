@@ -1,5 +1,5 @@
 # 使用官方的 Python 基础镜像
-FROM python:3.9-slim
+FROM python:3.13-alpine
 
 # 设置工作目录
 WORKDIR /app
@@ -8,10 +8,10 @@ WORKDIR /app
 COPY . /app
 
 # 安装应用依赖
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r /app/core/requirements.txt
 
 # 暴露端口
 EXPOSE 80
 
 # 定义容器启动时执行的命令
-CMD ["python", "main.py"]
+CMD ["python", "/app/core/main.py"]
