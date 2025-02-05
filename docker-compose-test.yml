@@ -1,6 +1,6 @@
 services:
   babchat:
-    image: babchat/babchat:test
+    image: registry.cn-hangzhou.aliyuncs.com/babchat/babchat:test
     container_name: babchat
     restart: always
     ports:
