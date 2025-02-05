@@ -8,10 +8,10 @@ WORKDIR /app
 COPY . /app
 
 # 安装应用依赖
-RUN pip install --no-cache-dir -r /app/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # 暴露端口
 EXPOSE 80
 
 # 定义容器启动时执行的命令
-CMD ["python", "/app/main.py"]
+CMD ["python", "main.py"]
