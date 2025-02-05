@@ -1,0 +1,7 @@
+services:
+  babchat:
+    image: babchat/babchat:test
+    container_name: babchat
+    restart: always
+    ports:
+      - 80:80

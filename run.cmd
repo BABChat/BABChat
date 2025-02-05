@@ -1,1 +1,1 @@
-docker compose up -d
+docker compose up -d -f docker-compose-test.yml

@@ -1,6 +1,6 @@
 services:
   babchat:
-    image: babchat/babchat
+    image: babchat/babchat:latest
     container_name: babchat
     restart: always
     ports:
