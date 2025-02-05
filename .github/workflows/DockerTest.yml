@@ -1,5 +1,7 @@
 name: 发布至阿里云Docker镜像服务(测试)
 
+on:
+
 jobs:
   build:
     runs-on: ubuntu-latest
