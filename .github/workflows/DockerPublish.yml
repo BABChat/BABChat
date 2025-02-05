@@ -1,4 +1,4 @@
-name: 发布至阿里云Docker镜像服务(测试)
+name: 发布至阿里云Docker镜像服务(正式)
 
 jobs:
   build:
@@ -16,7 +16,7 @@ jobs:
         password: ${{ secrets.TOKEN }}
 
     - name: Build
-      run: docker build -t registry.cn-hangzhou.aliyuncs.com/babchat/babchat:test .
+      run: docker build -t registry.cn-hangzhou.aliyuncs.com/babchat/babchat:latest .
 
     - name: Push
-      run: docker push registry.cn-hangzhou.aliyuncs.com/babchat/babchat:test
+      run: docker push registry.cn-hangzhou.aliyuncs.com/babchat/babchat:latest
