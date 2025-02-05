@@ -22,7 +22,7 @@ def chat():
     data = request.json
     user_message = data["message"]
     api_key = data["api_key"]
-    model = data.get("model", "gpt-3.5-turbo")
+    model = data.get("model")
 
     if not api_key:
         return {"reply": "API密钥不能为空", "status": "error"}

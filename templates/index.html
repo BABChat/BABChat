@@ -1,6 +1,7 @@
 <!-- templates/index.html -->
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>AI 聊天助手</title>
     <style>
@@ -101,13 +102,14 @@
         }
     </style>
 </head>
+
 <body>
     <!-- 左侧配置栏 -->
     <div class="sidebar">
         <h2>设置</h2>
         <div class="config-group">
             <label for="apiKey">API 密钥:</label>
-            <input type="password" id="apiKey" placeholder="输入OpenAI API密钥">
+            <input type="password" id="apiKey" placeholder="输入API密钥">
         </div>
         <div class="config-group">
             <label for="modelSelect">选择模型:</label>
@@ -149,7 +151,7 @@
             const message = userInput.value.trim();
             const apiKey = apiKeyInput.value.trim();
             const model = modelSelect.value;
-            
+
             if (!apiKey) return alert('请先输入API密钥');
             if (!message) return;
 
@@ -184,4 +186,5 @@
         }
     </script>
 </body>
+
 </html>
