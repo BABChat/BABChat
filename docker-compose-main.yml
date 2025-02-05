@@ -1,7 +1,0 @@
-services:
-  babchat:
-    image: registry.cn-hangzhou.aliyuncs.com/babchat/babchat:latest
-    container_name: babchat
-    restart: always
-    ports:
-      - 80:80
