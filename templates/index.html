@@ -1,43 +1,68 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <link rel="icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BABChat</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>阿里云AI聊天</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
-    <!-- 左侧配置栏 -->
-    <div class="sidebar">
-        <h2>设置</h2>
-        <div class="config-group">
-            <label for="apiKey">API 密钥:</label>
-            <input type="password" id="apiKey" placeholder="输入API密钥">
+    <div class="container">
+        <div class="config">
+            <input type="password" id="apiKey" placeholder="输入阿里云API密钥">
+            <div class="model-info">当前模型：deepseek-r1</div>
         </div>
-        <div class="config-group">
-            <label for="modelSelect">选择模型:</label>
-            <select id="modelSelect">
-                {% for model in models %}
-                <option value="{{ model }}">{{ model }}</option>
-                {% endfor %}
-            </select>
+
+        <div class="chat-container">
+            <div id="chatHistory"></div>
+            <div class="input-area">
+                <input type="text" id="messageInput" placeholder="输入消息...">
+                <button onclick="sendMessage()">发送</button>
+            </div>
         </div>
     </div>
 
-    <!-- 右侧主内容区 -->
-    <div class="main-content">
-        <h1>BABChat</h1>
-        <div class="chat-container" id="chatBox"></div>
-        <div class="input-group">
-            <input type="text" id="userInput" placeholder="输入你的消息..." onkeypress="handleEnter(event)">
-            <button onclick="sendMessage()">发送</button>
-        </div>
-    </div>
+    <script>
+        let messages = [];
 
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+        function appendMessage(role, content) {
+            const chatHistory = document.getElementById('chatHistory');
+            const div = document.createElement('div');
+            div.className = `message ${role}`;
+            div.innerHTML = `<strong>${role}:</strong> ${content}`;
+            chatHistory.appendChild(div);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            messages.push({ role: "user", content: message });
+            appendMessage("user", message);
+            input.value = '';
+
+            try {
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        apiKey: document.getElementById('apiKey').value,
+                        messages: messages
+                    })
+                });
+
+                const data = await response.json();
+                if (data.error) throw data.error;
+
+                messages.push({ role: "assistant", content: data.content });
+                appendMessage("assistant", data.content);
+            } catch (error) {
+                alert(`错误: ${error}`);
+            }
+        }
+    </script>
 </body>
 
 </html>

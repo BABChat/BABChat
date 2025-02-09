@@ -1,0 +1,10 @@
+.model-info {
+    padding: 8px;
+    color: #666;
+    font-size: 0.9em;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #f8f9fa;
+}
+
+/* 其他样式保持不变 */

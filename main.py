@@ -1,47 +1,37 @@
-import os
-from flask import Flask, request, render_template
-from openai import OpenAI
-from dotenv import load_dotenv
-
-load_dotenv()
+from flask import Flask, render_template, request, jsonify
+import openai
 
 app = Flask(__name__)
 
-# 可用模型列表
-AVAILABLE_MODELS = ["deepseek-ai/DeepSeek-R1", "deepseek-ai/DeepSeek-V3"]
+# 阿里云配置
+ALIYUN_CONFIG = {
+    "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1/",
+    "model": "deepseek-r1",
+}
 
 
 @app.route("/")
 def index():
-    return render_template("index.html", models=AVAILABLE_MODELS)
+    return render_template("index.html")
 
 
 @app.route("/chat", methods=["POST"])
 def chat():
     data = request.json
-    user_message = data["message"]
-    api_key = data["api_key"]
-    model = data.get("model")
-
-    if not api_key:
-        return {"reply": "API密钥不能为空", "status": "error"}
-
-    if model not in AVAILABLE_MODELS:
-        return {"reply": "不支持选择的模型", "status": "error"}
+    api_key = data["apiKey"]
+    messages = data["messages"]
 
     try:
-        client = OpenAI(api_key=api_key, base_url="https://api.siliconflow.cn/v1")
+        client = openai.OpenAI(api_key=api_key, base_url=ALIYUN_CONFIG["base_url"])
+
         response = client.chat.completions.create(
-            model=model,
-            messages=[
-                {"role": "system", "content": "你是一个乐于助人的助手"},
-                {"role": "user", "content": user_message},
-            ],
+            model=ALIYUN_CONFIG["model"], messages=messages, temperature=0.7
         )
-        return {"reply": response.choices[0].message.content, "status": "success"}
+
+        return jsonify({"content": response.choices[0].message.content})
     except Exception as e:
-        return {"reply": f"API请求失败: {str(e)}", "status": "error"}
+        return jsonify({"error": str(e)}), 500
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=80)
+    app.run(debug=True)
