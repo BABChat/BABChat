@@ -1,10 +1,10 @@
-# 使用 Python 镜像
-FROM python:3.8-alpine
+# 使用Python镜像
+FROM python:alpine
 
 # 设置工作目录
 WORKDIR /app
 
-# 将当前目录中的文件复制到镜像中的 /app 目录
+# 将当前目录中的文件复制到镜像中的/app
 COPY . /app
 
 # 安装应用依赖
