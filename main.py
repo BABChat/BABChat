@@ -10,7 +10,7 @@ PROVIDER_CONFIGS = {
         "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1/",
         "default_model": "deepseek-r1",
     },
-    "SiliconFlow": {
+    "硅基流动": {
         "base_url": "https://api.siliconflow.cn/v1",
         "default_model": "deepseek-ai/DeepSeek-R1",
     },
