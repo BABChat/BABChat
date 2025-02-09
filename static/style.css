@@ -1,87 +1,60 @@
-/* 整体布局优化 */
-.container {
-    max-width: 800px;
-    margin: 2rem auto;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    overflow: hidden;
-}
-
-/* 聊天历史区域 */
-#chatHistory {
-    min-height: 60vh;
-    max-height: 70vh;
-    overflow-y: auto;
+/* style.css */
+/* 新增配置区域样式 */
+.config {
     padding: 20px;
-    background: #f5f7fb;
-}
-
-/* 消息气泡样式 */
-.message {
-    margin: 12px 0;
-    padding: 12px 18px;
-    border-radius: 18px;
-    max-width: 75%;
-    line-height: 1.5;
-    animation: fadeIn 0.3s ease-in;
-}
-
-.message.user {
-    background: #007bff;
-    color: white;
-    margin-left: auto;
-}
-
-.message.assistant {
     background: white;
-    border: 1px solid #e3e8ee;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
-/* 输入区域优化 */
-.input-area {
+.provider-select {
     display: flex;
     gap: 10px;
-    padding: 20px;
-    background: white;
-    border-top: 1px solid #eee;
 }
 
-#messageInput {
+#providerSelect {
     flex: 1;
-    padding: 12px;
+    padding: 8px;
     border: 1px solid #e3e8ee;
-    border-radius: 25px;
-    transition: all 0.3s;
+    border-radius: 6px;
 }
 
-button {
-    padding: 12px 24px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.3s;
+#customProvider {
+    flex: 2;
+    padding: 8px;
+    border: 1px solid #e3e8ee;
+    border-radius: 6px;
 }
 
-/* 模型信息栏增强 */
+.model-input input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #e3e8ee;
+    border-radius: 6px;
+}
+
+#apiKey {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #e3e8ee;
+    border-radius: 6px;
+}
+
+/* 优化现有样式 */
 .model-info {
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef) !important;
-    border-color: #dee2e6 !important;
-    border-radius: 8px;
-    padding: 12px !important;
-    font-weight: 500;
+    background: #f8f9fa !important;
+    border: 1px solid #dee2e6 !important;
+    border-radius: 6px;
+    padding: 8px 12px !important;
+    font-size: 0.9em;
+    margin-top: 8px;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
+/* 响应式调整 */
+@media (max-width: 600px) {
+    .provider-select {
+        flex-direction: column;
     }
 }
