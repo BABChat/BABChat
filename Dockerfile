@@ -11,7 +11,7 @@ COPY . /app
 RUN pip install flask openai
 
 # 暴露端口
-EXPOSE 5000
+EXPOSE 80
 
 # 定义容器启动时执行的命令
 CMD ["python", "main.py"]
