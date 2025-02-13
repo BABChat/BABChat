@@ -52,6 +52,56 @@
     margin-top: 8px;
 }
 
+/* 优化输入框样式 */
+.message-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #e3e8ee;
+    border-radius: 6px;
+    transition: border-color 0.3s;
+}
+
+.message-input:focus {
+    border-color: #007bff;
+}
+
+/* 优化按钮样式 */
+.send-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.send-button:hover {
+    background-color: #0056b3;
+}
+
+/* 调整消息样式 */
+.message {
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 6px;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+    background-color: #f8f9fa;
+}
+
+.message.user {
+    background-color: #e9ecef;
+    color: #007bff;
+    align-self: flex-end;
+}
+
+.message.assistant {
+    background-color: #f8f9fa;
+    color: #28a745;
+    align-self: flex-start;
+}
+
 /* 响应式调整 */
 @media (max-width: 600px) {
     .provider-select {
@@ -74,13 +124,14 @@ body {
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    height: 90vh; /* 调整容器高度 */
+    overflow-y: auto; /* 添加滚动条 */
 }
 
 .chat-container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    max-height: 800px;
+    height: 100%;
     border: 1px solid #e3e8ee;
     border-radius: 6px;
     overflow: hidden;
@@ -98,13 +149,11 @@ body {
     gap: 10px;
     padding: 10px;
     background: white;
-}
-
-.message-input {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #e3e8ee;
-    border-radius: 6px;
+    border-top: 1px solid #e3e8ee; /* 添加顶部边框 */
+    position: sticky;
+    bottom: 0; /* 固定在底部 */
+    background: white; /* 确保背景色 */
+    z-index: 10; /* 确保按钮在最上层 */
 }
 
 .send-button {
