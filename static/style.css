@@ -124,8 +124,7 @@ body {
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    height: 90vh; /* 调整容器高度 */
-    overflow-y: auto; /* 添加滚动条 */
+    height: auto;
 }
 
 .chat-container {
@@ -149,11 +148,15 @@ body {
     gap: 10px;
     padding: 10px;
     background: white;
-    border-top: 1px solid #e3e8ee; /* 添加顶部边框 */
+    border-top: 1px solid #e3e8ee;
+    /* 添加顶部边框 */
     position: sticky;
-    bottom: 0; /* 固定在底部 */
-    background: white; /* 确保背景色 */
-    z-index: 10; /* 确保按钮在最上层 */
+    bottom: 0;
+    /* 固定在底部 */
+    background: white;
+    /* 确保背景色 */
+    z-index: 10;
+    /* 确保按钮在最上层 */
 }
 
 .send-button {
