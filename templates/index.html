@@ -2,106 +2,106 @@
 <html lang="zh-CN">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BABChat</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>BABChat</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
-    <div class="container">
-        <div class="provider-select">
-            <select id="providerSelect" onchange="updateProvider()">
-                <option value="">选择提供商</option>
-                <option value="阿里云" selected>阿里云</option>
-                <option value="硅基流动">硅基流动</option>
-            </select>
-            <input type="text" id="customProvider" placeholder="或输入自定义API地址">
-        </div>
+	<div class="container">
+		<div class="provider-select">
+			<select id="providerSelect" onchange="updateProvider()">
+				<option value="">选择提供商</option>
+				<option value="阿里云" selected>阿里云</option>
+				<option value="硅基流动">硅基流动</option>
+			</select>
+			<input type="text" id="customProvider" placeholder="或输入自定义API地址">
+		</div>
 
-        <input type="password" id="apiKey" placeholder="输入API密钥">
+		<input type="password" id="apiKey" placeholder="输入API密钥">
 
-        <div class="model-input">
-            <input type="text" id="modelInput" placeholder="输入模型名称 (默认根据提供商)">
-        </div>
+		<div class="model-input">
+			<input type="text" id="modelInput" placeholder="输入模型名称 (默认根据提供商)">
+		</div>
 
-        <div class="model-info" id="modelInfo">当前模型：deepseek-r1</div>
+		<div class="model-info" id="modelInfo">当前模型：deepseek-r1</div>
 
-        <div class="chat-container">
-            <div id="chatHistory" class="chat-history"></div>
-            <div class="input-area">
-                <input type="text" id="messageInput" placeholder="输入消息..." onkeypress="handleEnter(event)"
-                    class="message-input">
-                <button onclick="sendMessage()" class="send-button">发送</button>
-            </div>
-        </div>
+		<div class="chat-container">
+			<div id="chatHistory" class="chat-history"></div>
+			<div class="input-area">
+				<input type="text" id="messageInput" placeholder="输入消息..." onkeypress="handleEnter(event)"
+					class="message-input">
+				<button onclick="sendMessage()" class="send-button">发送</button>
+			</div>
+		</div>
 
-        <script>
-            let messages = [];
+		<script>
+			let messages = [];
 
-            function updateProvider() {
-                const providerSelect = document.getElementById('providerSelect');
-                const customProvider = document.getElementById('customProvider');
-                // 清空自定义输入当选择预设提供商时
-                if (providerSelect.value) customProvider.value = '';
-            }
+			function updateProvider() {
+				const providerSelect = document.getElementById('providerSelect');
+				const customProvider = document.getElementById('customProvider');
+				// 清空自定义输入当选择预设提供商时
+				if (providerSelect.value) customProvider.value = '';
+			}
 
-            function handleEnter(event) {
-                if (event.key === 'Enter') sendMessage();
-            }
+			function handleEnter(event) {
+				if (event.key === 'Enter') sendMessage();
+			}
 
-            function appendMessage(role, content) {
-                const chatHistory = document.getElementById('chatHistory');
-                const div = document.createElement('div');
-                div.className = `message ${role}`;
-                div.innerHTML = `<strong>${role}:</strong> ${content}`;
-                chatHistory.appendChild(div);
-                chatHistory.scrollTop = chatHistory.scrollHeight;
-            }
+			function appendMessage(role, content) {
+				const chatHistory = document.getElementById('chatHistory');
+				const div = document.createElement('div');
+				div.className = `message ${role}`;
+				div.innerHTML = `<strong>${role}:</strong> ${content}`;
+				chatHistory.appendChild(div);
+				chatHistory.scrollTop = chatHistory.scrollHeight;
+			}
 
-            async function sendMessage() {
-                const input = document.getElementById('messageInput');
-                const message = input.value.trim();
-                if (!message) {
-                    alert('消息不能为空');
-                    return;
-                }
+			async function sendMessage() {
+				const input = document.getElementById('messageInput');
+				const message = input.value.trim();
+				if (!message) {
+					alert('消息不能为空');
+					return;
+				}
 
-                messages.push({ role: "user", content: message });
-                appendMessage("user", message);
-                input.value = '';
+				messages.push({ role: "user", content: message });
+				appendMessage("user", message);
+				input.value = '';
 
-                try {
-                    const response = await fetch('/chat', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            apiKey: document.getElementById('apiKey').value,
-                            messages: messages,
-                            provider: document.getElementById('providerSelect').value,
-                            providerUrl: document.getElementById('customProvider').value,
-                            model: document.getElementById('modelInput').value
-                        })
-                    });
+				try {
+					const response = await fetch('/chat', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({
+							apiKey: document.getElementById('apiKey').value,
+							messages: messages,
+							provider: document.getElementById('providerSelect').value,
+							providerUrl: document.getElementById('customProvider').value,
+							model: document.getElementById('modelInput').value
+						})
+					});
 
-                    const data = await response.json();
-                    if (data.error) throw data.error;
+					const data = await response.json();
+					if (data.error) throw data.error;
 
-                    messages.push({ role: "assistant", content: data.content });
-                    appendMessage("assistant", data.content);
+					messages.push({ role: "assistant", content: data.content });
+					appendMessage("assistant", data.content);
 
-                    // 更新模型显示
-                    document.getElementById('modelInfo').textContent =
-                        "当前模型: " + (document.getElementById('modelInput').value ||
-                            (document.getElementById('providerSelect').value ?
-                                document.getElementById('providerSelect').options[document.getElementById('providerSelect').selectedIndex].text +
-                                " 默认" : "deepseek-r1"));
-                } catch (error) {
-                    alert(`错误: ${error}`);
-                }
-            }
-        </script>
-    </div>
+					// 更新模型显示
+					document.getElementById('modelInfo').textContent =
+						"当前模型: " + (document.getElementById('modelInput').value ||
+							(document.getElementById('providerSelect').value ?
+								document.getElementById('providerSelect').options[document.getElementById('providerSelect').selectedIndex].text +
+								" 默认" : "deepseek-r1"));
+				} catch (error) {
+					alert(`错误: ${error}`);
+				}
+			}
+		</script>
+	</div>
 </body>
 
 </html>

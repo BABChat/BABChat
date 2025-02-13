@@ -1,148 +1,148 @@
 /* style.css */
 /* 新增配置区域样式 */
 .config {
-    padding: 20px;
-    background: white;
-    border-bottom: 1px solid #eee;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+	padding: 20px;
+	background: white;
+	border-bottom: 1px solid #eee;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
 }
 
 .provider-select {
-    display: flex;
-    gap: 10px;
+	display: flex;
+	gap: 10px;
 }
 
 #providerSelect {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #e3e8ee;
-    border-radius: 6px;
+	flex: 1;
+	padding: 8px;
+	border: 1px solid #e3e8ee;
+	border-radius: 6px;
 }
 
 #customProvider {
-    flex: 2;
-    padding: 8px;
-    border: 1px solid #e3e8ee;
-    border-radius: 6px;
+	flex: 2;
+	padding: 8px;
+	border: 1px solid #e3e8ee;
+	border-radius: 6px;
 }
 
 .model-input input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #e3e8ee;
-    border-radius: 6px;
+	width: 100%;
+	padding: 8px;
+	border: 1px solid #e3e8ee;
+	border-radius: 6px;
 }
 
 #apiKey {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #e3e8ee;
-    border-radius: 6px;
+	width: 100%;
+	padding: 8px;
+	border: 1px solid #e3e8ee;
+	border-radius: 6px;
 }
 
 /* 优化现有样式 */
 .model-info {
-    background: #f8f9fa !important;
-    border: 1px solid #dee2e6 !important;
-    border-radius: 6px;
-    padding: 8px 12px !important;
-    font-size: 0.9em;
-    margin-top: 8px;
+	background: #f8f9fa !important;
+	border: 1px solid #dee2e6 !important;
+	border-radius: 6px;
+	padding: 8px 12px !important;
+	font-size: 0.9em;
+	margin-top: 8px;
 }
 
 /* 响应式调整 */
 @media (max-width: 600px) {
-    .provider-select {
-        flex-direction: column;
-    }
+	.provider-select {
+		flex-direction: column;
+	}
 }
 
 /* 新增样式 */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    margin: 0;
-    padding: 0;
+	font-family: Arial, sans-serif;
+	background-color: #f4f4f9;
+	margin: 0;
+	padding: 0;
 }
 
 .container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+	max-width: 800px;
+	margin: 20px auto;
+	padding: 20px;
+	background-color: white;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
 }
 
 .chat-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    max-height: 800px;
-    border: 1px solid #e3e8ee;
-    border-radius: 6px;
-    overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	max-height: 800px;
+	border: 1px solid #e3e8ee;
+	border-radius: 6px;
+	overflow: hidden;
 }
 
 .chat-history {
-    flex: 1;
-    padding: 10px;
-    overflow-y: auto;
-    border-bottom: 1px solid #e3e8ee;
+	flex: 1;
+	padding: 10px;
+	overflow-y: auto;
+	border-bottom: 1px solid #e3e8ee;
 }
 
 .input-area {
-    display: flex;
-    gap: 10px;
-    padding: 10px;
-    background: white;
+	display: flex;
+	gap: 10px;
+	padding: 10px;
+	background: white;
 }
 
 .message-input {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #e3e8ee;
-    border-radius: 6px;
+	flex: 1;
+	padding: 10px;
+	border: 1px solid #e3e8ee;
+	border-radius: 6px;
 }
 
 .send-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	padding: 10px 15px;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: background-color 0.3s;
 }
 
 .send-button:hover {
-    background-color: #0056b3;
+	background-color: #0056b3;
 }
 
 .message {
-    margin: 5px 0;
-    padding: 10px;
-    border-radius: 6px;
-    opacity: 0;
-    animation: fadeIn 0.5s forwards;
+	margin: 5px 0;
+	padding: 10px;
+	border-radius: 6px;
+	opacity: 0;
+	animation: fadeIn 0.5s forwards;
 }
 
 .message.user {
-    background-color: #e9ecef;
-    color: #007bff;
-    align-self: flex-end;
+	background-color: #e9ecef;
+	color: #007bff;
+	align-self: flex-end;
 }
 
 .message.assistant {
-    background-color: #f8f9fa;
-    color: #28a745;
-    align-self: flex-start;
+	background-color: #f8f9fa;
+	color: #28a745;
+	align-self: flex-start;
 }
 
 @keyframes fadeIn {
-    to {
-        opacity: 1;
-    }
+	to {
+		opacity: 1;
+	}
 }
