@@ -1,6 +1,7 @@
 # main.py
 from flask import Flask, render_template, request, jsonify
 import openai
+import logging
 
 app = Flask(__name__)
 
@@ -25,11 +26,14 @@ def index():
 @app.route("/chat", methods=["POST"])
 def chat():
     data = request.json
-    api_key = data["apiKey"]
-    messages = data["messages"]
+    api_key = data.get("apiKey")
+    messages = data.get("messages", [])
     provider_url = data.get("providerUrl", "")
     selected_provider = data.get("provider")
     model_name = data.get("model", "")
+
+    if not api_key or not messages:
+        return jsonify({"error": "API密钥或消息为空"}), 400
 
     try:
         # 确定base_url
@@ -55,6 +59,7 @@ def chat():
 
         return jsonify({"content": response.choices[0].message.content})
     except Exception as e:
+        logging.error(f"Error processing chat request: {e}")
         return jsonify({"error": str(e)}), 500
 
 
